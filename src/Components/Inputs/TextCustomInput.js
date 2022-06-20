@@ -11,7 +11,7 @@ const TextCustomInpute =(props)=>{
                 helperText=""
                 type={props.num ? "number" : "text"}
                 multiline={props.mult }
-                minRows={2}
+                minRows={3}
                 select ={props.select}
       >
           { props.select ? test.map((option) => (
