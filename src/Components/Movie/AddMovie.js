@@ -2,6 +2,7 @@ import Grid from '@mui/material/Grid';
 import TextCustomInpute from '../Inputs/TextCustomInput';
 import UploadButtons from "../Inputs/UplodeInput";
 import ChipsArea from '../Movie/ChipsArea';
+import LoadBtn from '../Inputs/LoadBtn';
 
 export default function BasicGrid() {
   return (
@@ -50,8 +51,10 @@ export default function BasicGrid() {
         <Grid item xs={7}>
             <ChipsArea />
         </Grid>
+        <Grid item xs={12}>
+           <LoadBtn />
+        </Grid>
         
-
       </Grid>
   );
 }
