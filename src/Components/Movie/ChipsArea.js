@@ -2,23 +2,26 @@ import * as React from 'react';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function ChipsArea() {
 
+  const arr = [1,2,3,4,4,4]
 
   return (
     <Stack direction="row" spacing={1}>
-        <Chip  color="primary"
-        label="Custom delete icon"
-        onClick={"handleClick"}
-        onDelete={'handleDelete'}
-        deleteIcon={<DeleteIcon />}
-        variant="outlined"
-      />
-        <Chip label="Deletable" variant="outlined"   deleteIcon={<DeleteIcon />} />
-        <Chip label="Deletable" variant="outlined"   deleteIcon={<DeleteIcon />} />
-        <Chip label="Deletable" variant="outlined"   deleteIcon={<DeleteIcon />} />
-        <Chip label="Deletable" variant="outlined"   deleteIcon={<DeleteIcon />}  />
+
+      { arr.map((item) =>{
+         return (
+                <Chip key={uuidv4()} color="primary"
+                label="Custom delete icon"
+                onClick={()=>{}}
+                onDelete={()=>{}}
+                deleteIcon={<DeleteIcon />}
+                variant="outlined"
+              />
+      )})}
+        
     </Stack>
   );
 }

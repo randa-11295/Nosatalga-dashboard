@@ -5,6 +5,7 @@ import Switch from '@mui/material/Switch';
 import SaveIcon from '@mui/icons-material/Save';
 import {useState} from 'react';
 
+
 export default function LoadingButtonsTransition() {
   const [loading, setLoading] = useState(true);
   function handleClick() {
@@ -33,10 +34,11 @@ export default function LoadingButtonsTransition() {
         <LoadingButton
           color="secondary"
           onClick={handleClick}
-          loading={loading}
+        //   loading={loading}
           loadingPosition="start"
           startIcon={<SaveIcon />}
           variant="contained"
+          type='submit'
         >
           Save
         </LoadingButton>

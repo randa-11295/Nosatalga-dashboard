@@ -7,13 +7,16 @@ const Input = styled('input')({
   display: 'none',
 });
 
-export default function UploadButtons() {
+export default function UploadButtons(props) {
   return (
       <label htmlFor="contained-button-file">
-        <Input accept="image/*" id="contained-button-file" multiple type="file" />
-        <Button variant="contained" component="span">
-          Upload   <PhotoCamera />
+
+        <Input accept="image/*" name={props.name} onChange={props.handleChange}  id="contained-button-file" multiple type="file" />
+
+        <Button variant="outLine" component="span">
+          upload  {props.name}  <PhotoCamera />
         </Button>
+
       </label>
       
   );
