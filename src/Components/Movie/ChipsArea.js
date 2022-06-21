@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
-import DeleteIcon from '@mui/icons-material/Delete';
+import CancelIcon from '@mui/icons-material/Cancel';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function ChipsArea() {
@@ -17,7 +17,7 @@ export default function ChipsArea() {
                 label="Custom delete icon"
                 onClick={()=>{}}
                 onDelete={()=>{}}
-                deleteIcon={<DeleteIcon />}
+                deleteIcon={<CancelIcon />}
                 variant="outlined"
               />
       )})}

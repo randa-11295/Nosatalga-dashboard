@@ -9,15 +9,10 @@ const Input = styled('input')({
 
 export default function UploadButtons(props) {
 
-
-
 const onFileChange = event => {
     
- 
-const value = event.target.files[0] ;
-
- props.handleChange( value , props.name );  
-
+  const value = event.target.files[0] ;
+   props.handleChange( value , props.name );  
 };
 
 
