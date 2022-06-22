@@ -11,17 +11,18 @@ export default function CheckArea(props) {
 
 // const [helperText, setHelperText] = React.useState('Choose wisely');
 
+
 return (
 
-<FormControl   variant="standard">
-{/* error={error} */}
+<FormControl   variant="standard"  error={ Boolean(props.formik.errors[props.name])}   >
 
-<RadioGroup  name="type" row  onChange={props.handleChange}>
-    <FormControlLabel  sx={{ mr: 6 }}   value="movie" control={<Radio />} label="Movie" />
-    <FormControlLabel  value="song"  control={<Radio />} label="Song" />
+
+<RadioGroup     name={props.name}  row   onChange={props.formik.handleChange}   >
+    <FormControlLabel color="error.main" value="movie" control={<Radio />} label="Movie" sx={{ mr: 6}} />
+    <FormControlLabel color="error.main" value="song"  control={<Radio />} label="Song" />
 </RadioGroup>
 
-<FormHelperText>{""}</FormHelperText>
+<FormHelperText>{props.formik.errors[props.name] || " "}</FormHelperText>
 
 </FormControl>
   );

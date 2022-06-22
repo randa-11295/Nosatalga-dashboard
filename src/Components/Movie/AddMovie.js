@@ -5,34 +5,30 @@ import ChipsArea from '../Movie/ChipsArea';
 import LoadBtn from '../Inputs/LoadBtn';
 import { useFormik } from 'formik';
 import CheckArea from '../Inputs/checkArea';
-import { useState } from 'react';
 import {addMovieShema} from "../../Common/vaildation"
 
 export default function BasicGrid() {
 
-const [bannarImg , setBannar] = useState("add bannar image");
-const [coverImg , setCover] = useState('add cover image');
-
-const changeImges = {  cover : setCover,  bannar : setBannar ,}
-
 const formik = useFormik({
-  initialValues: { 
-    name : "",
-  },
+initialValues: {
+  name : "",
+  description : "",
+  date : "" , 
+  mediaID : "" ,
+  bannar : {} ,
+  cover : {},
+ },
 validationSchema: addMovieShema,
 onSubmit: values => {
-
   console.log("submit ",values,);
 },
 });
 
 const custumHandelChange =(val , key)=>{
-   formik.values[key] = val
-    changeImges[key]( val.name)
-console.log(formik.values)
-
-
+    formik.values[key] = val  
+    console.log(formik.values)
 }
+
 
 return (
 <Grid  component="form" onSubmit={formik.handleSubmit} container spacing={6}>
@@ -45,7 +41,7 @@ return (
     </Grid>
 
     <Grid item xs={4}>
-       <TextCustomInpute formik={formik}  name="mediaId"   num={true} label="media Id" />
+       <TextCustomInpute formik={formik}  name="mediaId"   label="media Id" />
     </Grid>
 
     <Grid item xs={12}>
@@ -56,24 +52,15 @@ return (
        <h4> type media </h4>
     </Grid>
     <Grid item xs={9}>
-       <CheckArea handleChange={formik.handleSubmit}  />
+       <CheckArea formik={formik} name="type"  />
     </Grid>
 
-    <Grid item xs={3}>
-        <UploadButtons  handleChange={custumHandelChange}  name="bannar" />
+    <Grid item xs={6}>
+        <UploadButtons  error={formik.errors}  handleChange={custumHandelChange}  name="bannar" />
     </Grid>
-
-
-    <Grid item xs={3}>
-     { bannarImg }
-    </Grid> 
-
-    <Grid item xs={3}>
-          <UploadButtons  handleChange={custumHandelChange}  name="cover" />
-    </Grid>
-
-    <Grid item xs={3}>
-       { coverImg }
+   
+    <Grid item xs={6}>
+          <UploadButtons error={formik.errors} handleChange={custumHandelChange}  name="cover" />
     </Grid>
 
     <Grid item xs={4}>
