@@ -20,8 +20,10 @@ return (
       flexShrink: 0,
     }}
   >
-    <Box sx={{ overflow: 'auto'  , bgcolor : "#F8BFE6" , minHeight : "100vh" , width : "250px" }}>
+    <Box sx={{ overflow: 'auto'  , bgcolor : "#C17A78" , minHeight : "100vh" , width : "250px"  , color : "#000" }}>
       <List>
+
+        <ListItemButton sx={{background : "#570530"}}> test </ListItemButton>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>

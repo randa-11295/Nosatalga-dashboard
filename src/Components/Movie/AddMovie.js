@@ -14,7 +14,7 @@ initialValues: {
   name : "",
   description : "",
   date : "" , 
-  mediaID : "" ,
+  mediaId : "" ,
   bannar : {} ,
   cover : {},
  },

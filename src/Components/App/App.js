@@ -5,10 +5,10 @@ import AddMovie from "../Movie/AddMovie";
 
 export default function App() {
   return (
-    <Box sx={{ display: 'flex' }}> 
+    <Box sx={{ display: 'flex'  ,  p: 6 , }}> 
       <SideBar />
     
-      <Box component="main" sx={{ flexGrow: 1, p: 6 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 6 ,  background : "#fff" }}>
          <AddMovie />
       </Box>
     </Box>

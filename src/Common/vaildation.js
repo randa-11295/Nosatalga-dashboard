@@ -12,12 +12,22 @@ const dateCheck =   yup
                       .min(1700 , "must be more or equal to 1700" )
                       .max(1900 , "must be less or equal to 1900")
 
+  const imgCheck =(field)=>( yup.mixed()
+  .test('fileType', `this ${field} is required `, function (value) {
+    const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/png'];
+    return SUPPORTED_FORMATS.includes(value.type)
+  })
+  )
+
+  
+                                                
+
 export const addMovieShema = yup.object({
     name : stringCheck('name'),
     description: stringCheck('description'),
     mediaId : stringCheck('Id'),
-    bannar : stringCheck('bannar'),
-    cover : stringCheck('cover'),
+    bannar : imgCheck('bannar'),
+    cover : imgCheck('cover'),
     type : stringCheck ('type'),
     date : dateCheck,
     

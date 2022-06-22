@@ -24,7 +24,7 @@ const onFileChange = event => {
 return (
 <Box>
 <label>
-
+  {props.error[props.name]|| "no"}
   <Input accept="image/*"  onChange={onFileChange}  type="file" />
 
   <Button variant="outlined" component="span">
