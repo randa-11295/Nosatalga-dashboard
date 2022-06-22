@@ -8,7 +8,7 @@ export default function App() {
     <Box sx={{ display: 'flex'  ,  p: 6 , }}> 
       <SideBar />
     
-      <Box component="main" sx={{ flexGrow: 1, p: 6 ,  background : "#fff" }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 6 ,  background : "#fff"  ,  borderRadius : "15px" , boxShadow: "0px 0px 15px 0px rgba(0,0,0,0.12)"}}>
          <AddMovie />
       </Box>
     </Box>

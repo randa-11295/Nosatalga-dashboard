@@ -31,7 +31,7 @@ const custumHandelChange =(val , key)=>{
 
 
 return (
-<Grid  component="form" onSubmit={formik.handleSubmit} container spacing={6}>
+<Grid  component="form" onSubmit={formik.handleSubmit} container columnSpacing={4} rowSpacing = {1}>
     <Grid item xs={4}>
         <TextCustomInpute  formik={formik}  name="name"  label="Media Name" />
     </Grid>
