@@ -1,8 +1,13 @@
 import { styled } from '@mui/material/styles';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Box';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import { useState } from 'react';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormLabel from '@mui/material/FormLabel';
+
 
 const Input = styled('input')({
   display: 'none',
@@ -22,17 +27,26 @@ const onFileChange = event => {
 
 
 return (
-<Box>
-<label>
-  {props.error[props.name]|| "no"}
-  <Input accept="image/*"  onChange={onFileChange}  type="file" />
+<FormControl   variant="standard"  error={! true }   >
+<FormLabel sx= {{ml : 1 , mb:1}} > Media {props.name} </FormLabel>
+<Box sx={{display : "flex" , alignItems : "center"}}>
 
-  <Button variant="outlined" component="span">
-    upload  {props.name}  <PhotoCamera />
-  </Button>
+    <label>
+     
+      <Input accept="image/*"  onChange={onFileChange}  type="file"  />
 
-</label>
-<p>{photo}</p>
+      <Button   component="span" sx= {{ mr: 4 , textTransform: 'capitalize',  }}>
+           <PhotoCamera sx= {{ mr: 1  }} /> upload
+      </Button>
+    </label>
+
+    <Typography variant="p" component="p" sx= {{fontSize : ".9rem"}}   >      
+             {photo}
+    </Typography>
 </Box>
+<FormHelperText sx= {{ml : 1 }}>{"test" || " "}</FormHelperText>
+
+
+</FormControl>
 );
 }

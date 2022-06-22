@@ -6,6 +6,7 @@ import LoadBtn from '../Inputs/LoadBtn';
 import { useFormik } from 'formik';
 import CheckArea from '../Inputs/checkArea';
 import {addMovieShema} from "../../Common/vaildation"
+import Headline from '../Text/Headline';
 
 export default function BasicGrid() {
 
@@ -29,9 +30,11 @@ const custumHandelChange =(val , key)=>{
     console.log(formik.values)
 }
 
-
 return (
-<Grid  component="form" onSubmit={formik.handleSubmit} container columnSpacing={4} rowSpacing = {1}>
+<Grid  component="form" onSubmit={formik.handleSubmit} container columnSpacing={4} rowSpacing = {2}>
+    <Grid item xs={12}>
+        <Headline />
+    </Grid>
     <Grid item xs={4}>
         <TextCustomInpute  formik={formik}  name="name"  label="Media Name" />
     </Grid>
@@ -49,17 +52,14 @@ return (
     </Grid>
 
     <Grid item xs={3}>
-       <h4> type media </h4>
-    </Grid>
-    <Grid item xs={9}>
        <CheckArea formik={formik} name="type"  />
     </Grid>
 
-    <Grid item xs={6}>
+    <Grid item xs={4.5}>
         <UploadButtons  error={formik.errors}  handleChange={custumHandelChange}  name="bannar" />
     </Grid>
    
-    <Grid item xs={6}>
+    <Grid item xs={4.5}>
           <UploadButtons error={formik.errors} handleChange={custumHandelChange}  name="cover" />
     </Grid>
 
@@ -73,6 +73,7 @@ return (
     <Grid item xs={7}>
         <ChipsArea />
     </Grid>
+
     <Grid item xs={12}>
         <LoadBtn  />
     </Grid>

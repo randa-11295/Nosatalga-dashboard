@@ -20,17 +20,15 @@ return (
       flexShrink: 0,
     }}
   >
-    <Box sx={{ overflow: 'auto'  , bgcolor : "#C17A78" , minHeight : "100vh" , width : "250px"  , color : "#000" }}>
+    <Box sx={{ overflow: 'auto'  ,
+    background: "linear-gradient(20deg,#c33d70 0%, #7a3f85 85%)",
+     minHeight : "100vh" , width : "250px"  , color : "#000" }}>
       <List>
 
-        <ListItemButton sx={{background : "#570530"}}> test </ListItemButton>
         {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={text} sx={{color : "#fff" , textAlign : "center"}} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -40,10 +38,7 @@ return (
         {['All mail', 'Trash', 'Spam'].map((text, index) => (
           <ListItem key={text} disablePadding>
             <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={text} sx={{color : "#fff" , textAlign : "center"}} />
             </ListItemButton>
           </ListItem>
         ))}
