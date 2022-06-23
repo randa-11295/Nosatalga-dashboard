@@ -7,17 +7,23 @@ import FormLabel from '@mui/material/FormLabel';
 
 export default function CheckArea(props) {
 
+const touch = props.formik.touched[props.name] 
+
 return (
 
-<FormControl   variant="standard"  error={ Boolean(props.formik.errors[props.name])}   >
+<FormControl   variant="standard"  error={touch &&  Boolean(props.formik.errors[props.name]) }  >
 
 
 <FormLabel sx= {{ mb:1}} > Media {props.name} </FormLabel>
-<RadioGroup  name={props.name}  row   onChange={props.formik.handleChange}   >
-    <FormControlLabel color="error.main" value="movie" control={<Radio />} label="Movie" sx={{ mr: 6}} />
-    <FormControlLabel color="error.main" value="song"  control={<Radio />} label="Song" />
+
+<RadioGroup  name={props.name}  row  onChange={props.formik.handleChange} >
+    <FormControlLabel value="movie" control={<Radio />} label="Movie" sx={{ mr: 6}}  />
+    <FormControlLabel value="song"  control={<Radio />} label="Song" />
 </RadioGroup>
-<FormHelperText>{props.formik.errors[props.name] || " "}</FormHelperText>
+
+<FormHelperText>
+  {props.formik.errors[props.name] || " "}
+</FormHelperText>
 
 
 </FormControl>
