@@ -1,4 +1,5 @@
 import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
 import TextCustomInpute from "../Inputs/TextCustomInput";
 import UploadButtons from "../Inputs/UplodeInput";
 import ChipsArea from "../Movie/ChipsArea";
@@ -8,30 +9,33 @@ import CheckArea from "../Inputs/checkArea";
 import { addMovieShema } from "../../Common/vaildation";
 import Headline from "../Text/Headline";
 import { v4 as uuid } from "uuid";
-import { TextField } from "@mui/material";
-import { useState } from "react";
 
 export default function BasicGrid() {
+  const values = {
+    name: "",
+    type: "",
+    description: "",
+    date: "",
+    mediaId: "",
+    bannar: {},
+    cover: {},
+  }
+
   const formik = useFormik({
-    initialValues: {
-      name: "",
-      type: "",
-      description: "",
-      date: "",
-      mediaId: "",
-      bannar: {},
-      cover: {},
-    },
+    initialValues:values , 
     // validationSchema: addMovieShema,
     onSubmit: (values) => {
       console.log("submit ", values);
+      formik.resetForm()
+      
     },
   });
-
+ 
+ 
   const custumHandelChange = (val, key) => {
     formik.values[key] = val;
-    console.log(formik.values);
   };
+ 
 
   const textInput = [
     { name: "name", label: "Media Name", size: 4 },
@@ -39,6 +43,7 @@ export default function BasicGrid() {
     { name: "mediaId", label: "Media Id", size: 4 },
     { name: "description", label: "Media Description", size: 12, mult: true },
   ];
+  const imgInput = ["bannar", "cover"];
 
   const repeatTextInput = () =>
     textInput.map((el) => (
@@ -48,6 +53,7 @@ export default function BasicGrid() {
           num={el.num}
           name={el.name}
           label={el.label}
+          mult={el.mult}
         />
       </Grid>
     ));
@@ -61,7 +67,7 @@ export default function BasicGrid() {
           />
         </Grid>
       )))
-  const imgInput = ["bannar", "cover"];
+
 
   return (
     <Grid
@@ -84,12 +90,22 @@ export default function BasicGrid() {
 
       {imgRepeat()}
 
-      <Grid item xs={7}>
+      <Grid  item xs={4}>
+        <TextCustomInpute
+          formik={formik}
+          name='teamWork'
+          label='Team Work'
+          select={true}
+        />
+      </Grid>
+
+      <Grid item xs={8}>
         <ChipsArea />
       </Grid>
 
-      <Grid item xs={12}>
-        <LoadBtn />
+      <Grid item xs={12} sx={{display : "flex" , justifyContent : "flex-end" }}>
+        <Button   color="secondary" variant="outlined"  onClick={formik.resetForm} sx={{mr : 3 , width : "150px"}} >  clear </Button>
+        <LoadBtn /> 
       </Grid>
     </Grid>
   );
