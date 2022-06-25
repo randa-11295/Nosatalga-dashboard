@@ -103,7 +103,7 @@ export default function BasicGrid() {
         <ChipsArea />
       </Grid>
 
-      <Grid item xs={12} sx={{display : "flex" , justifyContent : "flex-end" }}>
+      <Grid item xs={12} sx={{display : "flex" , justifyContent : "flex-end"  , mt :4}}>
         <Button   color="secondary" variant="outlined"  onClick={formik.resetForm} sx={{mr : 3 , width : "150px"}} >  clear </Button>
         <LoadBtn /> 
       </Grid>

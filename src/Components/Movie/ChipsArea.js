@@ -5,7 +5,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { v4 as uuidv4 } from "uuid";
 
 export default function ChipsArea() {
-  const arr = [1, 2, 3, 4, 4, 4, 8, 7, 9];
+  const arr = [1, 2, 3,  4, 4, 8, 7, 9];
 
   return (
     <Stack
