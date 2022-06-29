@@ -8,6 +8,7 @@ import Headline from "../Text/Headline";
 import { v4 as uuid } from "uuid";
 import CheckArea from "../Inputs/CheckArea";
 import RedioArea from "../Inputs/RedioArea";
+import { addActorShema } from "../../Common/vaildation";
 
 export default function AddActors() {
   const values = {
@@ -20,7 +21,7 @@ export default function AddActors() {
 
   const formik = useFormik({
     initialValues: values,
-    // validationSchema: addMovieShema,
+    validationSchema: addActorShema,
     onSubmit: (values) => {
       console.log("submit ", values);
       formik.resetForm();
@@ -39,11 +40,11 @@ export default function AddActors() {
   ];
 
   const job = [
-    { name: "ممثل", label: "actor" , checked : true },
-    { name: "مطرب", label: "singer"  , checked : false},
-    { name: "مخرج", label: "director" , checked : false },
-    { name: "عازف", label: "musician" , checked : false },
-    { name: "ملحن", label: "composer" , checked : false },
+    { name: "ممثل", label: "actor" ,  },
+    { name: "مطرب", label: "singer"  },
+    { name: "مخرج", label: "director"},
+    { name: "عازف", label: "musician" },
+    { name: "ملحن", label: "composer" },
   ];
 
   const gender= ['male' , 'famale' ]  
@@ -58,7 +59,7 @@ export default function AddActors() {
       rowSpacing={3}
     >
       <Grid item xs={12}>
-        <Headline />
+        <Headline text="Add  Actor" />
       </Grid>
 
       <Grid item xs={4}>

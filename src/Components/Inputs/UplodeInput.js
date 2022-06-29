@@ -1,5 +1,5 @@
 import { styled } from "@mui/material/styles";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Box";

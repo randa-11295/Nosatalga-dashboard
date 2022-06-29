@@ -78,7 +78,7 @@ export default function BasicGrid() {
       rowSpacing={3}
     >
       <Grid item xs={12}>
-        <Headline />
+        <Headline text="Add media"/>
       </Grid>
 
       {repeatTextInput()}

@@ -13,6 +13,11 @@ const dateCheck = yup
   .min(1700, "must be more or equal to 1700")
   .max(1900, "must be less or equal to 1900");
 
+const arrCheck = yup
+  .array()
+  .min(1, "you must chose more than 1")
+  .max(2, "you must chose less than 3");
+
 const imgCheck = (field) =>
   yup.mixed().test("fileType", `this ${field} is required `, function (value) {
     const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
@@ -27,4 +32,11 @@ export const addMovieShema = yup.object({
   cover: imgCheck("cover"),
   type: stringCheck("type"),
   date: dateCheck,
+});
+
+export const addActorShema = yup.object({
+  name: stringCheck("name"),
+  photo: imgCheck("photo"),
+  gender: stringCheck("gender"),
+  job: arrCheck,
 });
