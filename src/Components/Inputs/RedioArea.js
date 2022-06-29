@@ -6,12 +6,11 @@ import FormHelperText from "@mui/material/FormHelperText";
 import FormLabel from "@mui/material/FormLabel";
 
 export default function RedioArea(props) {
-  const touch = props.formik.touched[props.name];
-
+  const isError = Boolean(props.formik.errors[props.name]) && props.formik.touched[props.name];
   return (
     <FormControl
       variant="standard"
-      error={touch && Boolean(props.formik.errors[props.name])}
+      error={isError }
     >
       <FormLabel sx={{ mb: 1 }}> {props.name} </FormLabel>
 
@@ -32,7 +31,7 @@ export default function RedioArea(props) {
         ))}
       </RadioGroup>
 
-      <FormHelperText>{props.formik.errors[props.name] || " "}</FormHelperText>
+      <FormHelperText>{ isError ? props.formik.errors[props.name] : " "}</FormHelperText>
     </FormControl>
   );
 }

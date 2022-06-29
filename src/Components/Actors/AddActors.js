@@ -16,7 +16,6 @@ export default function AddActors() {
     gender: "",
     job: [] , 
     photo: {},
-
   };
 
   const formik = useFormik({

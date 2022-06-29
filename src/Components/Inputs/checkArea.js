@@ -4,11 +4,16 @@ import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import FormHelperText from "@mui/material/FormHelperText";
+
 
 export default function CheckArea(props) {
+  
+  const isError = props.formik.errors[props.name] 
+
   return (
     <FormControl
-      // error={error}
+      error={Boolean(isError) }
       component="fieldset"
       variant="standard"
     >
@@ -31,6 +36,7 @@ export default function CheckArea(props) {
           );
         })}
       </FormGroup>
+      <FormHelperText>{ isError || " "}</FormHelperText>
       {/* <FormHelperText>You can display an error</FormHelperText> */}
     </FormControl>
   );
