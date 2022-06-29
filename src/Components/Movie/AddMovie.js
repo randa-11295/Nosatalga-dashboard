@@ -5,8 +5,8 @@ import UploadButtons from "../Inputs/UplodeInput";
 import ChipsArea from "../Movie/ChipsArea";
 import LoadBtn from "../Inputs/LoadBtn";
 import { useFormik } from "formik";
-import CheckArea from "../Inputs/checkArea";
-import { addMovieShema } from "../../Common/vaildation";
+import RedioArea from "../Inputs/RedioArea";
+// import { addMovieShema } from "../../Common/vaildation";
 import Headline from "../Text/Headline";
 import { v4 as uuid } from "uuid";
 
@@ -85,7 +85,7 @@ export default function BasicGrid() {
 
 
       <Grid item xs={4}>
-        <CheckArea formik={formik} name="type" />
+        <RedioArea formik={formik} name="type" />
       </Grid>
 
       {imgRepeat()}
