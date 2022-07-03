@@ -18,14 +18,14 @@ export default function RedioArea(props) {
         {props.data?.map((el) => (
           <FormControlLabel
           onChange={props.formik.handleChange}
-            key={el}
-            value={el}
+            key={el.label}
+            value={el.val}
             control={
               <Radio
-               checked={props.formik.values[props.name] === el}
+               checked={props.formik.values[props.name] === el.val}
                 />
             }
-            label={el}
+            label={el.label}
             sx={{ mr: 3 }}
           />
         ))}

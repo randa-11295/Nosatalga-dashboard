@@ -3,7 +3,6 @@ import Box from "@mui/material/Box";
 import SideBar from "../SideBar/SideBar";
 import AddMovie from "../Movie/AddMovie";
 import AddActors from "../Actors/AddActors";
-import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const boxStyle = {
@@ -29,18 +28,18 @@ const continStyle = {
 
 export default function App() {
   return (
-        <BrowserRouter>
-    <Box sx={continStyle}>
-      <SideBar />
+    <BrowserRouter>
+      <Box sx={continStyle}>
+        <SideBar />
 
-      <Box component="main" sx={boxStyle}>
+        <Box component="main" sx={boxStyle}>
           <Routes>
             <Route path="/" element={<AddMovie />} />
             <Route path="/add-media" element={<AddMovie />} />
             <Route path="/add-actor" element={<AddActors />} />
           </Routes>
+        </Box>
       </Box>
-    </Box>
-        </BrowserRouter>
+    </BrowserRouter>
   );
 }

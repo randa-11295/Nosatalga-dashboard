@@ -6,11 +6,11 @@ const stringCheck = (field) =>
     .required(`${field} is required`)
     .min(3, `${field}  should be of minimum 8 characters length`);
 
-const dateCheck = yup
+const dateCheck = ()=>yup
   .number("enter the media date")
   .required(`media date is required`)
   .integer("must be integer")
-  .min(1700, "must be more or equal to 1700")
+  .min(1500, "must be more or equal to 1500")
   .max(1900, "must be less or equal to 1900");
 
 const arrCheck = yup
@@ -36,7 +36,10 @@ export const addMovieShema = yup.object({
 
 export const addActorShema = yup.object({
   name: stringCheck("name"),
-  photo: imgCheck("photo"),
+  type: stringCheck("type"),
+  image: stringCheck("image"),
+  from: dateCheck("from"),
+  to: dateCheck("to"),
   gender: stringCheck("gender"),
-  job: arrCheck,
+  // job: arrCheck,
 });

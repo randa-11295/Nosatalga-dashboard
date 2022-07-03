@@ -1,26 +1,25 @@
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import TextCustomInpute from "../Inputs/TextCustomInput";
-import UploadButtons from "../Inputs/UplodeInput";
 import LoadBtn from "../Inputs/LoadBtn";
 import { useFormik } from "formik";
 import Headline from "../Text/Headline";
-import { v4 as uuid } from "uuid";
-import CheckArea from "../Inputs/CheckArea";
 import RedioArea from "../Inputs/RedioArea";
 import { addActorShema } from "../../Common/vaildation";
 
 export default function AddActors() {
   const values = {
     name: "",
-    gender: "",
-    job: [] , 
-    photo: {},
+    isMale : false ,
+    type: "",
+    from : "" ,
+    to : "" , 
+    image: "",
   };
 
   const formik = useFormik({
     initialValues: values,
-    validationSchema: addActorShema,
+    // validationSchema: addActorShema,
     onSubmit: (values) => {
       console.log("submit ", values);
       formik.resetForm();
@@ -38,15 +37,16 @@ export default function AddActors() {
     { name: "description", label: "Media Description", size: 12, mult: true },
   ];
 
-  const job = [
-    { name: "ممثل", label: "actor" ,  },
-    { name: "مطرب", label: "singer"  },
-    { name: "مخرج", label: "director"},
-    { name: "عازف", label: "musician" },
-    { name: "ملحن", label: "composer" },
-  ];
+  // const job = [
+  //   { name: "ممثل", label: "actor" ,  },
+  //   { name: "مطرب", label: "singer"  },
+  //   { name: "مخرج", label: "director"},
+  //   { name: "عازف", label: "musician" },
+  //   { name: "ملحن", label: "composer" },
+  // ];
 
-  const gender= ['male' , 'famale' ]  
+  const job = [{ val : "actor" , label :"ACTOR"} ,{ val : "COMPOSER" , label : "COMPOSER"}];
+  const gender = [{ val : false , label : "male" } ,{val : true , label : "famale "}];
 
   return (
     <Grid
@@ -61,31 +61,37 @@ export default function AddActors() {
         <Headline text="Add  Actor" />
       </Grid>
 
-      <Grid item xs={4}>
+      <Grid item xs={6}>
         <TextCustomInpute formik={formik} name="name" label="actor name" />
       </Grid>
-
-      <Grid item xs={4} key={uuid()}>
-        <UploadButtons
-          formik={formik}
-          handleChange={custumHandelChange}
-          name="photo"
-        />
+      <Grid item xs={6}>
+        <TextCustomInpute formik={formik} name="image" label="actor image" />
       </Grid>
 
-      <Grid item xs={8}>
-        <RedioArea name='gender' data={gender} formik={formik} />
+      <Grid item xs={3}>
+        <TextCustomInpute formik={formik} num={true} name="from" label="from" />
+      </Grid>
+      <Grid item xs={3}>
+        <TextCustomInpute formik={formik}  num={true} name="to" label="to" />
+      </Grid>
+      <Grid item xs={3}>
+        {/* <TextCustomInpute formik={formik} name="to" label="to" /> */}
       </Grid>
 
-      <Grid item xs={8}>
-        <CheckArea name='job' data={job} formik={formik} />
+
+
+      <Grid item xs={12}>
+        <RedioArea name="type" data={job} formik={formik} />
+      </Grid>
+      <Grid item xs={12}>
+        <RedioArea name="isMale" data={gender} formik={formik} />
       </Grid>
 
       <Grid
         item
         justifyContent="center"
         xs={8}
-        sx={{ textAlign: "right" , mt:4 }}
+        sx={{ textAlign: "right", mt: 4 }}
       >
         <Button
           color="secondary"
