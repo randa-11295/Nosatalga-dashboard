@@ -8,7 +8,9 @@ import { useFormik } from "formik";
 import RedioArea from "../Inputs/RedioArea";
 // import { addMovieShema } from "../../Common/vaildation";
 import Headline from "../Text/Headline";
+import SelectInput from "../Inputs/SelectInput";
 import { v4 as uuid } from "uuid";
+import AutoComplete from "../Inputs/AutoComplete";
 
 export default function BasicGrid() {
   const values = {
@@ -19,6 +21,7 @@ export default function BasicGrid() {
     mediaId: "",
     bannar: {},
     cover: {},
+    cast : "gggggg" ,
   }
 
   const formik = useFormik({
@@ -78,7 +81,7 @@ export default function BasicGrid() {
       rowSpacing={3}
     >
       <Grid item xs={12}>
-        <Headline text="Add media"/>
+        <Headline text="Add Show"/>
       </Grid>
 
       {repeatTextInput()}
@@ -91,10 +94,10 @@ export default function BasicGrid() {
       {imgRepeat()}
 
       <Grid  item xs={4}>
-        <TextCustomInpute
+        <AutoComplete 
           formik={formik}
-          name='teamWork'
-          label='Team Work'
+          name='cast'
+          label='Cast'
           select={true}
         />
       </Grid>
