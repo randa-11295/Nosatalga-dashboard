@@ -44,12 +44,11 @@ export const addMovieShema = yup.object({
   date: dateCheck,
 });
 
-export const addActorShema = yup.object({
+export const addActorShema =(isLive)=>( yup.object({
   name: stringCheck("name"),
-  // type: stringCheck("type"),
   image: imageURL("image"),
   from: dateCheck("from"),
-  to: dateCheck("to"),
+  to: (isLive ? null : dateCheck("to")),
   gender: stringCheck("gender"),
   jobs: arrCheck,
-});
+}));

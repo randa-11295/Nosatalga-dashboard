@@ -6,9 +6,9 @@ import ChipsArea from "../Movie/ChipsArea";
 import LoadBtn from "../Inputs/LoadBtn";
 import { useFormik } from "formik";
 import RedioArea from "../Inputs/RedioArea";
-// import { addMovieShema } from "../../Common/vaildation";
+// import { addMovieShema } from "../../Common/vaildation"; 
 import Headline from "../Text/Headline";
-import SelectInput from "../Inputs/SelectInput";
+// import SelectInput from "../Inputs/SelectInput";
 import { v4 as uuid } from "uuid";
 import AutoComplete from "../Inputs/AutoComplete";
 
@@ -34,11 +34,9 @@ export default function BasicGrid() {
     },
   });
  
- 
   const custumHandelChange = (val, key) => {
     formik.values[key] = val;
   };
- 
 
   const textInput = [
     { name: "name", label: "Media Name", size: 4 },
@@ -70,7 +68,6 @@ export default function BasicGrid() {
           />
         </Grid>
       )))
-
 
   return (
     <Grid

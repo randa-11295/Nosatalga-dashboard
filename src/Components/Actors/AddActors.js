@@ -7,21 +7,27 @@ import Headline from "../Text/Headline";
 import RedioArea from "../Inputs/RedioArea";
 import ChackArea from "../Inputs/CheckArea";
 import { addActorShema } from "../../Common/vaildation";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import { useState } from "react";
 
 export default function AddActors() {
   const values = {
     name: "",
     from: "",
     to: "",
+    workNumber : "" ,
     image: "",
     gender: "",
     jobs: [],
     type: "",
   };
 
+  const [isLive, setIsLive] = useState(false);
+
   const formik = useFormik({
     initialValues: values,
-    validationSchema: addActorShema,
+    validationSchema: addActorShema(isLive),
     onSubmit: (values) => {
       getCarrer(values.jobs, values.gender);
       getSubmitData(values);
@@ -30,13 +36,20 @@ export default function AddActors() {
     },
   });
 
-  const getSubmitData = (values) => ({
-    name: values.name,
-    type: values.type,
-    from: values.from,
-    to: values.to,
-    image: values.image,
-  });
+  const getSubmitData = (values) => {
+    let data = {
+      name: values.name,
+      type: values.type,
+      from: values.from,
+      image: values.image,
+      workNumber : values.workNumber
+    };
+    if (isLive) {
+       data = { ...data, to: values.to };
+    }
+
+    return data;
+  };
 
   const getCarrer = (jobs, gender) => {
     if (gender === "famale") {
@@ -53,13 +66,6 @@ export default function AddActors() {
     formik.values[key] = val;
   };
 
-  const textInput = [
-    { name: "name", label: "Media Name", size: 4 },
-    { name: "date", label: "Media Date", size: 4, num: true },
-    { name: "mediaId", label: "Media Id", size: 4 },
-    { name: "description", label: "Media Description", size: 12, mult: true },
-  ];
-
   const job = [
     { name: "ممثل", label: "actor" },
     { name: "مطرب", label: "singer" },
@@ -67,44 +73,62 @@ export default function AddActors() {
     { name: "عازف", label: "musician" },
     { name: "ملحن", label: "composer" },
   ];
+
   const gender = [
     { val: "male", label: "Male" },
     { val: "famale", label: "Famale " },
   ];
 
+  const repetTextInputs = () => {
+    const textInput = [
+      { name: "name", label: "Actor Name", size: 6 },
+      { name: "image", label: "Image Date", size: 6 },
+      { name: "workNumber", label: "Number of work", size: 3, num: true },
+      { name: "from", label: "porn", size: 3, num: true },
+      { name: "to", label: "die", size: 3, num: true, disable: isLive },
+    ];
+    return textInput.map((el) => (
+      <Grid key={el.name} item xs={el.size}>
+        <TextCustomInpute
+          formik={formik}
+          name={el.name}
+          label={el.label}
+          num={el.num}
+          disable={el.disable}
+        />
+      </Grid>
+    ));
+  };
+
+  const changeLiveHanndel = () => {
+    const toggelLive = !isLive;
+    setIsLive(toggelLive);
+    console.log(toggelLive);
+  };
   return (
     <Grid
-      justifyContent="center"
       component="form"
       onSubmit={formik.handleSubmit}
       container
-      columnSpacing={8}
-      rowSpacing={3}
+      spacing={3}
     >
       <Grid item xs={12}>
         <Headline text="Add  Actor" />
       </Grid>
-
-      <Grid item xs={6}>
-        <TextCustomInpute formik={formik} name="name" label="actor name" />
-      </Grid>
-      <Grid item xs={6}>
-        <TextCustomInpute formik={formik} name="image" label="actor image" />
-      </Grid>
+      {repetTextInputs()}
 
       <Grid item xs={3}>
-        <TextCustomInpute formik={formik} num={true} name="from" label="from" />
-      </Grid>
-      <Grid item xs={3}>
-        <TextCustomInpute formik={formik} num={true} name="to" label="to" />
-      </Grid>
-      <Grid item xs={3}>
-        {/* <TextCustomInpute formik={formik} name="to" label="to" /> */}
+        <FormControlLabel
+          onChange={changeLiveHanndel}
+          control={<Checkbox checked={isLive} value={isLive} />}
+          label="still alive"
+        />
       </Grid>
 
       <Grid item xs={12}>
         <ChackArea name="jobs" data={job} formik={formik} />
       </Grid>
+
       <Grid item xs={12}>
         <RedioArea name="gender" data={gender} formik={formik} />
       </Grid>
