@@ -6,12 +6,13 @@ const stringCheck = (field) =>
     .required(`${field} is required`)
     .min(3, `${field}  should be of minimum 8 characters length`);
 
-const dateCheck = ()=>yup
-  .number("enter the media date")
-  .required(`media date is required`)
-  .integer("must be integer")
-  .min(1500, "must be more or equal to 1500")
-  .max(1900, "must be less or equal to 1900");
+const dateCheck = () =>
+  yup
+    .number("enter the media date")
+    .required(`media date is required`)
+    .integer("must be integer")
+    .min(1500, "must be more to 1500")
+    .max(1900, "must be less to 1980");
 
 const arrCheck = yup
   .array()
@@ -23,6 +24,15 @@ const imgCheck = (field) =>
     const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/png"];
     return SUPPORTED_FORMATS.includes(value.type);
   });
+
+const imageURL = () => {
+  const URL = /^https?:\/\/.*\/.*\.(png|gif|webp|jpeg|jpg)\??.*$/gmi
+
+  return yup
+    .string()
+    .matches(URL,"must be a valid image url")
+    .required(`media date is required`);
+};
 
 export const addMovieShema = yup.object({
   name: stringCheck("name"),
@@ -36,10 +46,10 @@ export const addMovieShema = yup.object({
 
 export const addActorShema = yup.object({
   name: stringCheck("name"),
-  type: stringCheck("type"),
-  image: stringCheck("image"),
+  // type: stringCheck("type"),
+  image: imageURL("image"),
   from: dateCheck("from"),
   to: dateCheck("to"),
   gender: stringCheck("gender"),
-  // job: arrCheck,
+  jobs: arrCheck,
 });

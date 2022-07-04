@@ -5,26 +5,49 @@ import LoadBtn from "../Inputs/LoadBtn";
 import { useFormik } from "formik";
 import Headline from "../Text/Headline";
 import RedioArea from "../Inputs/RedioArea";
+import ChackArea from "../Inputs/CheckArea";
 import { addActorShema } from "../../Common/vaildation";
 
 export default function AddActors() {
   const values = {
     name: "",
-    isMale : false ,
-    type: "",
-    from : "" ,
-    to : "" , 
+    from: "",
+    to: "",
     image: "",
+    gender: "",
+    jobs: [],
+    type: "",
   };
 
   const formik = useFormik({
     initialValues: values,
-    // validationSchema: addActorShema,
+    validationSchema: addActorShema,
     onSubmit: (values) => {
-      console.log("submit ", values);
+      getCarrer(values.jobs, values.gender);
+      getSubmitData(values);
+      console.log("submit ", getSubmitData(values));
       formik.resetForm();
     },
   });
+
+  const getSubmitData = (values) => ({
+    name: values.name,
+    type: values.type,
+    from: values.from,
+    to: values.to,
+    image: values.image,
+  });
+
+  const getCarrer = (jobs, gender) => {
+    if (gender === "famale") {
+      jobs = jobs.map((el) => `${el}ة`);
+    }
+
+    let type = jobs.join(" و ");
+    custumHandelChange(type, "type");
+
+    console.log(type);
+  };
 
   const custumHandelChange = (val, key) => {
     formik.values[key] = val;
@@ -37,16 +60,17 @@ export default function AddActors() {
     { name: "description", label: "Media Description", size: 12, mult: true },
   ];
 
-  // const job = [
-  //   { name: "ممثل", label: "actor" ,  },
-  //   { name: "مطرب", label: "singer"  },
-  //   { name: "مخرج", label: "director"},
-  //   { name: "عازف", label: "musician" },
-  //   { name: "ملحن", label: "composer" },
-  // ];
-
-  const job = [{ val : "actor" , label :"ACTOR"} ,{ val : "COMPOSER" , label : "COMPOSER"}];
-  const gender = [{ val : false , label : "male" } ,{val : true , label : "famale "}];
+  const job = [
+    { name: "ممثل", label: "actor" },
+    { name: "مطرب", label: "singer" },
+    { name: "مخرج", label: "director" },
+    { name: "عازف", label: "musician" },
+    { name: "ملحن", label: "composer" },
+  ];
+  const gender = [
+    { val: "male", label: "Male" },
+    { val: "famale", label: "Famale " },
+  ];
 
   return (
     <Grid
@@ -72,19 +96,17 @@ export default function AddActors() {
         <TextCustomInpute formik={formik} num={true} name="from" label="from" />
       </Grid>
       <Grid item xs={3}>
-        <TextCustomInpute formik={formik}  num={true} name="to" label="to" />
+        <TextCustomInpute formik={formik} num={true} name="to" label="to" />
       </Grid>
       <Grid item xs={3}>
         {/* <TextCustomInpute formik={formik} name="to" label="to" /> */}
       </Grid>
 
-
-
       <Grid item xs={12}>
-        <RedioArea name="type" data={job} formik={formik} />
+        <ChackArea name="jobs" data={job} formik={formik} />
       </Grid>
       <Grid item xs={12}>
-        <RedioArea name="isMale" data={gender} formik={formik} />
+        <RedioArea name="gender" data={gender} formik={formik} />
       </Grid>
 
       <Grid
