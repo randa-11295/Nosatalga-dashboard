@@ -37,11 +37,12 @@ const imageURL = () => {
 export const addMovieShema = yup.object({
   name: stringCheck("name"),
   description: stringCheck("description"),
-  mediaId: stringCheck("Id"),
-  bannar: imgCheck("bannar"),
-  cover: imgCheck("cover"),
+  url: stringCheck("Id"),
+  poster: imgCheck("bannar"),
+  cover : imgCheck("cover"),
   type: stringCheck("type"),
   date: dateCheck,
+  // cast : arrCheck , 
 });
 
 export const addActorShema =(isLive)=>( yup.object({
