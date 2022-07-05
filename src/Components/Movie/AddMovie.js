@@ -1,26 +1,26 @@
 import Grid from "@mui/material/Grid";
+import {  useMutation } from "@apollo/client";
 import Button from "@mui/material/Button";
 import TextCustomInpute from "../Inputs/TextCustomInput";
-import UploadButtons from "../Inputs/UplodeInput";
 import ChipsArea from "../Movie/ChipsArea";
 import LoadBtn from "../Inputs/LoadBtn";
 import { useFormik } from "formik";
 import RedioArea from "../Inputs/RedioArea";
 // import { addMovieShema } from "../../Common/vaildation";
 import Headline from "../Text/Headline";
-import { v4 as uuid } from "uuid";
 import AutoComplete from "../Inputs/AutoComplete";
+import { addMovieQuiery } from "../../ApolloClint/mediaQuieries";
+import AlertRun from "../Inputs/AlertRun";
 
 export default function BasicGrid() {
   const values = {
-    name: "",
-    type: "",
-    description: "",
-    date: "",
-    url: "",
-    bannar: "",
-    poster: "",
-    cover: "",
+    date: "123",
+    panner: "https://studio.apollographql.com/sandbox/diff.png",
+    poster: "https://studio.apollographql.com/sandbox/diff.jpg",
+    url: "https://studio.apollographql.com/sandbox/diff/",
+    name: "ttt",
+    type: "SONG",
+    description: "kkkkkk",
     cast: [],
   };
 
@@ -29,20 +29,17 @@ export default function BasicGrid() {
     // validationSchema: addMovieShema,
     onSubmit: (values) => {
       console.log("submit ", values);
-      formik.resetForm();
+      mutateFunction();
+      // formik.resetForm();
     },
   });
-
-  const custumHandelChange = (val, key) => {
-    formik.values[key] = val;
-  };
 
   const textInput = [
     { name: "name", label: "Show Name", size: 4 },
     { name: "date", label: "Show Date", size: 4, num: true },
     { name: "url", label: "Show URL", size: 4 },
     { name: "description", label: "Media Description", size: 12, mult: true },
-    { name: "bannar", label: "Bannar link", size: 4,  },
+    { name: "panner", label: "Pannar link", size: 4 },
     { name: "poster", label: "Poster link", size: 4 },
   ];
 
@@ -51,7 +48,6 @@ export default function BasicGrid() {
     { val: "SONG", label: "song" },
     { val: "RARE", label: "RARE" },
   ];
-  const imgInput = ["bannar", "cover"];
 
   const repeatTextInput = () =>
     textInput.map((el) => (
@@ -66,7 +62,14 @@ export default function BasicGrid() {
       </Grid>
     ));
 
-
+  const [mutateFunction, { loading }] = useMutation(addMovieQuiery, {
+    variables: {
+      showInput: formik.values,
+      update: (proxy, result) => {
+        console.log(result.createShow);
+      },
+    },
+  });
 
   return (
     <Grid
@@ -107,7 +110,7 @@ export default function BasicGrid() {
         >
           clear
         </Button>
-        <LoadBtn />
+        <LoadBtn loading={loading} />
       </Grid>
     </Grid>
   );
