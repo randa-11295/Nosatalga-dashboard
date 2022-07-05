@@ -7,3 +7,12 @@ mutation Mutation($showInput: ShowInput!) {
   }
 }
 `
+
+export const getActorData =  gql`
+query Query($name: String!) {
+  getActor(name: $name) {
+    _id
+    name
+  }
+}
+`

@@ -2,15 +2,14 @@ import Grid from "@mui/material/Grid";
 import {  useMutation } from "@apollo/client";
 import Button from "@mui/material/Button";
 import TextCustomInpute from "../Inputs/TextCustomInput";
-import ChipsArea from "../Movie/ChipsArea";
 import LoadBtn from "../Inputs/LoadBtn";
 import { useFormik } from "formik";
 import RedioArea from "../Inputs/RedioArea";
 // import { addMovieShema } from "../../Common/vaildation";
 import Headline from "../Text/Headline";
-import AutoComplete from "../Inputs/AutoComplete";
 import { addMovieQuiery } from "../../ApolloClint/mediaQuieries";
 import AlertRun from "../Inputs/AlertRun";
+import AddCast from "./AddCast";
 
 export default function BasicGrid() {
   const values = {
@@ -18,7 +17,7 @@ export default function BasicGrid() {
     panner: "https://studio.apollographql.com/sandbox/diff.png",
     poster: "https://studio.apollographql.com/sandbox/diff.jpg",
     url: "https://studio.apollographql.com/sandbox/diff/",
-    name: "ttt",
+    // name: "ttt",
     type: "SONG",
     description: "kkkkkk",
     cast: [],
@@ -28,7 +27,6 @@ export default function BasicGrid() {
     initialValues: values,
     // validationSchema: addMovieShema,
     onSubmit: (values) => {
-      console.log("submit ", values);
       mutateFunction();
       // formik.resetForm();
     },
@@ -46,7 +44,7 @@ export default function BasicGrid() {
   const typs = [
     { val: "MOVIE", label: "movie" },
     { val: "SONG", label: "song" },
-    { val: "RARE", label: "RARE" },
+    { val: "RARE", label: "rare" },
   ];
 
   const repeatTextInput = () =>
@@ -62,14 +60,19 @@ export default function BasicGrid() {
       </Grid>
     ));
 
-  const [mutateFunction, { loading }] = useMutation(addMovieQuiery, {
+  const [mutateFunction, { data , loading , error }] = useMutation(addMovieQuiery, {
     variables: {
       showInput: formik.values,
+    } ,
       update: (proxy, result) => {
-        console.log(result.createShow);
-      },
+        console.log(proxy)
+        console.log( formik.values)
+        console.log(result);
+    
     },
   });
+
+
 
   return (
     <Grid
@@ -89,14 +92,11 @@ export default function BasicGrid() {
         <RedioArea formik={formik} name="type" data={typs} />
       </Grid>
 
-      <Grid item xs={4}>
-        <AutoComplete formik={formik} name="cast" label="Cast" select={true} />
-      </Grid>
+      <AddCast />
+      <Grid item xs={12}>
+      <AlertRun sucsses={data} error={error} />
 
-      <Grid item xs={8}>
-        <ChipsArea />
       </Grid>
-
       <Grid
         item
         xs={12}

@@ -21,10 +21,11 @@ const TextCustomInpute = (props) => {
       }
       name={props.name}
       label={props.label}
+      disabled={props.disable || false}
       type={props.num ? "number" : "text"}
       multiline={props.mult || false}
       minRows={3}
-      disabled={props.disable || false}
+  
     />
   );
 };
