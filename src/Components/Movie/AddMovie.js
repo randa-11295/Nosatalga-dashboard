@@ -11,7 +11,10 @@ import { addMovieQuiery } from "../../ApolloClint/mediaQuieries";
 import AlertRun from "../Inputs/AlertRun";
 import AddCast from "./AddCast";
 
+
 export default function BasicGrid() {
+
+
   const values = {
     date: "123",
     panner: "https://studio.apollographql.com/sandbox/diff.png",
@@ -27,6 +30,7 @@ export default function BasicGrid() {
     initialValues: values,
     // validationSchema: addMovieShema,
     onSubmit: (values) => {
+   
       mutateFunction();
       // formik.resetForm();
     },
@@ -63,13 +67,7 @@ export default function BasicGrid() {
   const [mutateFunction, { data , loading , error }] = useMutation(addMovieQuiery, {
     variables: {
       showInput: formik.values,
-    } ,
-      update: (proxy, result) => {
-        console.log(proxy)
-        console.log( formik.values)
-        console.log(result);
-    
-    },
+    } 
   });
 
 
@@ -92,7 +90,7 @@ export default function BasicGrid() {
         <RedioArea formik={formik} name="type" data={typs} />
       </Grid>
 
-      <AddCast />
+      <AddCast movieFormik={formik} />
       <Grid item xs={12}>
       <AlertRun sucsses={data} error={error} />
 

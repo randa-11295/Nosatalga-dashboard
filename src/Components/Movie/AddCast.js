@@ -2,41 +2,54 @@ import ChipsArea from "../Movie/ChipsArea";
 import Grid from "@mui/material/Grid";
 import TextFildWithBtn from "../Inputs/TextFildWithBtn";
 import { useFormik } from "formik";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { getActorData } from "../../ApolloClint/mediaQuieries";
+import { addCastShema } from "../../Common/vaildation";
+import { useState } from "react";
+
 const AddCast = () => {
+  const [myActors, setMyActor] = useState([]);
+
   const values = {
-    cast: "ttt",
+    name: "",
   };
 
   const formik = useFormik({
     initialValues: values,
-    // validationSchema: addMovieShema,
-    onSubmit: (values) => {
-      //   mutateFunction();
-      // formik.resetForm();
-      console.log(values);
+    validationSchema: addCastShema,
+    onSubmit: () => {
+      getActor();
     },
   });
 
-  const { data, loading: postLoading } = useQuery(getActorData, {
+  const [getActor, { loading, error }] = useLazyQuery(getActorData, {
     variables: {
-        name : "randa"
+      name: formik.values.name,
     },
-    
+    onCompleted: (res) => {
+      console.log(res);
+      setMyActor([...myActors, res.getActor]);
+    },
   });
 
-const test = ()=>{console.log(data)}
-
-
+  const deleteActor = (id) => {
+    const actors = myActors.filter((el) => el._id !== id);
+    setMyActor(actors);
+  };
   return (
     <>
-      <Grid item xs={4}>
-        <TextFildWithBtn label="Cast" name="cast"  formik={formik} />
+      <Grid onSubmit={formik.handleSubmit} item xs={4}>
+        <TextFildWithBtn
+          loading={loading}
+          label="name"
+          name="name"
+          formik={formik}
+          err={error}
+        />
       </Grid>
-     {test() }
+
       <Grid item xs={8}>
-        <ChipsArea />
+        <ChipsArea fun={deleteActor} arr={myActors} />
       </Grid>
     </>
   );

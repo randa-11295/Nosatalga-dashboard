@@ -1,26 +1,22 @@
-import * as React from "react";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { v4 as uuidv4 } from "uuid";
 
-export default function ChipsArea() {
-  const arr = [1, 2, 3,  4, 4, 8, 7, 9];
-
+export default function ChipsArea(props) {
   return (
     <Stack
       direction="row"
-      sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-evenly" }}
+      sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-start" }}
     >
-      {arr.map((item) => {
+      {props.arr.map((item) => {
         return (
           <Chip
-            key={uuidv4()}
+            key={item._id}
             color="primary"
-            label="Custom delete icon"
+            label={item.name}
             sx={{ margin: "5px" }}
             onDelete={() => {
-              console.log(item);
+              props.fun(item._id);
             }}
             deleteIcon={<CancelIcon />}
             variant="outlined"

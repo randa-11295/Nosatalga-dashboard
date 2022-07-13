@@ -4,7 +4,8 @@ const stringCheck = (field) =>
   yup
     .string(`Enter media name ${field} `)
     .required(`${field} is required`)
-    .min(3, `${field}  should be of minimum 8 characters length`);
+    .min(3, `${field}  should be of minimum 3 characters length`)
+    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field ");
 
 const dateCheck = () =>
   yup
@@ -53,3 +54,7 @@ export const addActorShema =(isLive)=>( yup.object({
   gender: stringCheck("gender"),
   jobs: arrCheck,
 }));
+
+export const addCastShema = yup.object({
+  name: stringCheck("cast"),
+});

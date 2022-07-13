@@ -13,7 +13,7 @@ export default function RedioArea(props) {
     <FormControl variant="standard" error={isError}>
       <FormLabel sx={{ mb: 1 }}> {props.name} </FormLabel>
 
-      <RadioGroup name={props.name} row>
+      <RadioGroup name={props.name} row >
         {props.data?.map((el) => (
           <FormControlLabel
             onChange={props.formik.handleChange}
