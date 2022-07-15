@@ -1,24 +1,31 @@
 import * as yup from "yup";
 
-const stringCheck = (field , num) =>
+const stringCheck = (field, num = 0) =>
   yup
-    .string(`Enter media name ${field} `)
+    .string(`Enter   ${field} `)
     .required(`${field} is required`)
-    .min(num , `${field}  should be of minimum ${num} characters length`)
+    .min(num, `${field}  should be of minimum ${num} characters length`)
     .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field ");
+
+const IdCheck = (field , num=0) =>
+  yup
+    .string(`Enter   ${field} `)
+    .required(`${field} is required`)
+    .min(num, `${field}  should be of minimum ${num} characters length`);
 
 const dateCheck = () =>
   yup
-    .number("enter the media date")
-    .required(`media date is required`)
+    .number("enter the  date")
+    .required(` date is required`)
     .integer("must be integer")
     .min(1500, "must be more to 1500")
     .max(1900, "must be less to 1980");
 
-const arrCheck = yup
-  .array()
-  .min(1, "you must chose more than 1")
-  .max(2, "you must chose less than 3");
+const arrCheck = (frist, sec, action = "chose") =>
+  yup
+    .array()
+    .min(frist, `you must chose more than ${frist} items`)
+    .max(sec, `you must ${action} less than ${sec} items`);
 
 const imgCheck = (field) =>
   yup.mixed().test("fileType", `this ${field} is required `, function (value) {
@@ -27,35 +34,36 @@ const imgCheck = (field) =>
   });
 
 const imageURL = () => {
-  const URL = /^https?:\/\/.*\/.*\.(png|gif|webp|jpeg|jpg)\??.*$/gmi
+  const URL = /^https?:\/\/.*\/.*\.(png|gif|webp|jpeg|jpg)\??.*$/gim;
 
   return yup
     .string()
-    .matches(URL,"must be a valid image url")
+    .matches(URL, "must be a valid image url")
     .required(`media date is required`);
 };
 
 export const addMovieShema = yup.object({
-  name: stringCheck("name" , 3),
-  description: stringCheck("description" , 100),
-  url: stringCheck("Id"),
-  poster: imgCheck("bannar"),
-  cover : imgCheck("cover"),
+  name: stringCheck("name", 3),
+  description: IdCheck("description", 100),
+  url: IdCheck("url"),
+  poster: imageURL("poster"),
+  panner: imageURL("panner"),
   type: stringCheck("type"),
-  date: dateCheck,
-  // cast : arrCheck , 
+  category: arrCheck(2, 5),
+  date: dateCheck("date"),
+  cast: arrCheck(3, 10, "add"),
 });
 
-
-export const addActorShema =(isLive)=>( yup.object({
-  name: stringCheck("name" , 5),
-  image: imageURL("image"),
-  from: dateCheck("from"),
-  to: (isLive ? null : dateCheck("to")),
-  gender: stringCheck("gender" , 0),
-  jobs: arrCheck,
-}));
+export const addActorShema = (isLive) =>
+  yup.object({
+    name: stringCheck("name", 5),
+    image: imageURL("image"),
+    from: dateCheck("from"),
+    to: isLive ? null : dateCheck("to"),
+    gender: stringCheck("gender", 0),
+    jobs: arrCheck(1, 2),
+  });
 
 export const addCastShema = yup.object({
-  name: stringCheck("cast" , 3),
+  name: stringCheck("cast", 3),
 });

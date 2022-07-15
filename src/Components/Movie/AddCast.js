@@ -19,36 +19,37 @@ const AddCast = (props) => {
     initialValues: values,
     validationSchema: addCastShema,
     onSubmit: (values) => {
-       const nawActor = myActors.every((el) => values.name !== el.name)
-       if (nawActor){
-         getActor();
-       }
-       else {
-        console.log("already added")
-       }
+      const nawActor = myActors.every((el) => values.name !== el.name);
+      if (nawActor) {
+        getActor();
+      } else {
+        console.log("already added");
+      }
     },
   });
 
- const test =()=>{
-  const nawActor = myActors.every((el) => values.name !== el.name)
-  if (nawActor){
-    getActor();
-  }
-  else {
-   console.log("already added")
-  }
-}
+  const [val, setVal] = useState();
 
+  const test = () => {
+    setVal(formik.values.name);
+    const nawActor = myActors.some((el) => formik.values.name === el.name);
+   console.log(nawActor)
+    if (!nawActor) {
+      getActor();
+    } else {
+      console.log("already added");
+    }
+  };
 
   const [getActor, { loading, error }] = useLazyQuery(getActorData, {
     variables: {
-      name: formik.values.name,
+      name: val,
     },
-  
+
     onCompleted: (res) => {
       setMyActor([...myActors, res.getActor]);
       setActorsIds([...actorsIds, res.getActor._id]);
-      formik.resetForm() ;  
+      formik.resetForm();
       props.custumHandelChange([...actorsIds, res.getActor._id], props.name);
     },
   });
@@ -59,7 +60,7 @@ const AddCast = (props) => {
 
     setMyActor(actors);
     setActorsIds(actorId);
- 
+
     props.custumHandelChange(actorId, props.name);
   };
 
@@ -67,11 +68,12 @@ const AddCast = (props) => {
     <>
       <Grid onSubmit={formik.handleSubmit} item xs={4}>
         <TextFildWithBtn
-          // loading={loading}
-          label="name"
+          loading={loading}
+          label="Cast"
           name="name"
           formik={formik}
-          fun = {test}
+          parentFormik={props.movieFormik}
+          fun={test}
           err={error}
         />
       </Grid>

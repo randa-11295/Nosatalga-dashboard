@@ -8,14 +8,16 @@ import DoneIcon from "@mui/icons-material/Done";
 
 export default function TextFildWithBtn(props) {
   const isError =
-    Boolean(props.formik.errors[props.name]) &&
-    props.formik.touched[props.name];
+  (  Boolean(props.formik.errors[props.name]) &&
+    props.formik.touched[props.name]) ||
+  (  Boolean(props.parentFormik.errors.cast) &&
+    props.parentFormik.touched[props.name]) 
 
   const texthelp = () => {
     if (isError) {
-      return props.formik.errors[props.name];
-    } else if (props.loding) {
-      return "Loding ...";
+      return props.formik.errors[props.name] || props.parentFormik.errors.cast ;
+    } else if (props.loading) {
+      return "Loading ...";
     } else {
       return " ";
     }
@@ -28,7 +30,7 @@ export default function TextFildWithBtn(props) {
       <OutlinedInput
         value={props.formik.values[props.name] || ""}
         onChange={props.formik.handleChange}
-        onBlur={props.formik.handleBlur}
+        
         error={
           props.formik.touched[props.name] &&
           Boolean(props.formik.errors[props.name]) &&

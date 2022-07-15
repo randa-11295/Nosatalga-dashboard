@@ -19,7 +19,7 @@ export default function CheckArea(props) {
     >
       <FormLabel component="legend"> {props.name}</FormLabel>
       <FormGroup row name={props.name}>
-        {props.data.map((el) => {
+        {props.data?.map((el) => {
           return (
             <FormControlLabel
               name={props.name}
