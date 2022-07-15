@@ -1,8 +1,8 @@
+import { useFormik } from "formik";
+import { useMutation } from "@apollo/client";
 import { addMovieShema } from "../../Common/vaildation";
 import { addMovieQuiery } from "../../ApolloClint/mediaQuieries";
-import { useFormik } from "formik";
-import { useContext } from "react";
-import { useMutation } from "@apollo/client";
+import { useContext , useState } from "react";
 import DataContext from "../../Context/DataContext";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
@@ -49,13 +49,15 @@ const category = [
 export default function AddMovie() {
  const myContext = useContext(DataContext)
 
+ const [clean , setClean] = useState(false)
+
   const formik = useFormik({
     initialValues: values,
     validationSchema: addMovieShema,
     onSubmit: (values) => {
+      setClean(false)
       const {date  } = values
       custumHandelChange( date.toString(), 'date' )
-      console.log(values);
       mutateFunction();
     },
   });
@@ -80,6 +82,7 @@ export default function AddMovie() {
         showInput: formik.values
       },
       onCompleted: (res) => {
+        setClean(true)
         formik.resetForm()
         myContext.turnOnAlart(true ,  res.createShow.name  + " add Successfully ")
       },
@@ -120,6 +123,7 @@ export default function AddMovie() {
         custumHandelChange={custumHandelChange}
         name="cast"
         movieFormik={formik}
+        clean={clean}
       />
       <Grid item xs={12}>
       

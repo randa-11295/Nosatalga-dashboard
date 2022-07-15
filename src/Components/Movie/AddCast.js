@@ -1,17 +1,24 @@
-import ChipsArea from "../Movie/ChipsArea";
 import Grid from "@mui/material/Grid";
+import ChipsArea from "../Movie/ChipsArea";
+import DataContext from "../../Context/DataContext";
 import TextFildWithBtn from "../Inputs/TextFildWithBtn";
 import { useFormik } from "formik";
 import { useLazyQuery } from "@apollo/client";
 import { getActorData } from "../../ApolloClint/mediaQuieries";
 import { addCastShema } from "../../Common/vaildation";
-import { useState , useContext } from "react";
-import DataContext from "../../Context/DataContext";
+import { useState , useContext  , useEffect} from "react";
 
 const AddCast = (props) => {
   const [myActors, setMyActor] = useState([]);
   const [actorsIds, setActorsIds] = useState([]);
   const myContext = useContext(DataContext)
+
+  useEffect(()=>{
+    if(props.clean){
+    setMyActor([])
+    setActorsIds([])
+    }},
+  [props.clean])
 
   const values = {
     name: "",
@@ -33,6 +40,7 @@ const AddCast = (props) => {
   const [val, setVal] = useState();
 
   const makeReq = () => {
+
     setVal(formik.values.name);
     const nawActor = myActors.some((el) => formik.values.name === el.name);
    console.log(nawActor)
@@ -52,13 +60,10 @@ const AddCast = (props) => {
       setMyActor([...myActors, res.getActor]);
       setActorsIds([...actorsIds, res.getActor._id]);
       formik.resetForm();
-      props.custumHandelChange([...actorsIds, res.getActor._id], props.name);
-  
-
+      props.custumHandelChange([...actorsIds, res.getActor._id], props.name)
     },
     onError : (err)=>{
       myContext.turnOnAlart(false , err.message )
-
     }
   });
 
