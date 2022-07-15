@@ -4,15 +4,15 @@ import LoadBtn from "../Inputs/LoadBtn";
 import Headline from "../Text/Headline";
 import RedioArea from "../Inputs/RedioArea";
 import ChackArea from "../Inputs/CheckArea";
+import DataContext from "../../Context/DataContext";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TextCustomInpute from "../Inputs/TextCustomInput";
 import { useFormik } from "formik";
 import { addActorShema } from "../../Common/vaildation";
 import { useMutation } from "@apollo/client";
-import { useState } from "react";
 import { addActorQuiery } from "../../ApolloClint/mediaQuieries";
-
+import { useState, useContext } from "react";
 const job = [
   { name: "ممثل", label: "actor" },
   { name: "مطرب", label: "singer" },
@@ -37,15 +37,16 @@ const values = {
 };
 
 export default function AddActors() {
-  
   const [isLive, setIsLive] = useState(false);
+
+  const myContext = useContext(DataContext);
 
   const formik = useFormik({
     initialValues: values,
     validationSchema: addActorShema(isLive),
     onSubmit: (values) => {
       getCarrer(values.jobs, values.gender);
-      mutateFunction();    
+      mutateFunction();
     },
   });
 
@@ -54,7 +55,7 @@ export default function AddActors() {
     from: formik.values.from.toString(),
     to: formik.values.toString(),
     type: formik.values.type,
-    image: formik.values.image
+    image: formik.values.image,
   };
 
   const getCarrer = (jobs, gender) => {
@@ -95,17 +96,18 @@ export default function AddActors() {
     formik.values.to = "now";
   };
 
-  const [mutateFunction, {  loading  }] = useMutation(
-    addActorQuiery,
-    {
-      variables: {
-        actorInput: reqVal,
-      },
-      onCompleted: (res) => {
-        console.log(res);
-      },
-    }
-  );
+  const [mutateFunction, { loading }] = useMutation(addActorQuiery, {
+    variables: {
+      actorInput: reqVal,
+    },
+    onCompleted: (res) => {
+      formik.resetForm();
+      myContext.turnOnAlart(true, res.createShow.name + " add Successfully ");
+    },
+    onError: (err) => {
+      myContext.turnOnAlart(false, err.message);
+    },
+  });
 
   return (
     <Grid component="form" onSubmit={formik.handleSubmit} container spacing={3}>

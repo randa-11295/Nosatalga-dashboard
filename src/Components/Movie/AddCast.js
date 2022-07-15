@@ -5,11 +5,13 @@ import { useFormik } from "formik";
 import { useLazyQuery } from "@apollo/client";
 import { getActorData } from "../../ApolloClint/mediaQuieries";
 import { addCastShema } from "../../Common/vaildation";
-import { useState } from "react";
+import { useState , useContext } from "react";
+import DataContext from "../../Context/DataContext";
 
 const AddCast = (props) => {
   const [myActors, setMyActor] = useState([]);
   const [actorsIds, setActorsIds] = useState([]);
+  const myContext = useContext(DataContext)
 
   const values = {
     name: "",
@@ -30,14 +32,14 @@ const AddCast = (props) => {
 
   const [val, setVal] = useState();
 
-  const test = () => {
+  const makeReq = () => {
     setVal(formik.values.name);
     const nawActor = myActors.some((el) => formik.values.name === el.name);
    console.log(nawActor)
     if (!nawActor) {
       getActor();
     } else {
-      console.log("already added");
+      myContext.turnOnAlart(false , "Already  added" )
     }
   };
 
@@ -51,7 +53,13 @@ const AddCast = (props) => {
       setActorsIds([...actorsIds, res.getActor._id]);
       formik.resetForm();
       props.custumHandelChange([...actorsIds, res.getActor._id], props.name);
+  
+
     },
+    onError : (err)=>{
+      myContext.turnOnAlart(false , err.message )
+
+    }
   });
 
   const deleteActor = (id) => {
@@ -73,7 +81,7 @@ const AddCast = (props) => {
           name="name"
           formik={formik}
           parentFormik={props.movieFormik}
-          fun={test}
+          fun={makeReq}
           err={error}
         />
       </Grid>

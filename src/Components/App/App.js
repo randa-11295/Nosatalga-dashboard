@@ -1,9 +1,11 @@
-import * as React from "react";
+import {useState , useEffect} from "react";
 import Box from "@mui/material/Box";
 import SideBar from "../SideBar/SideBar";
 import AddMovie from "../Movie/AddMovie";
 import AddActors from "../Actors/AddActors";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AlertRun from "../Inputs/AlertRun";
+import DataContext from "../../Context/DataContext";
 
 const boxStyle = {
   flexGrow: 1,
@@ -27,19 +29,36 @@ const continStyle = {
 };
 
 export default function App() {
+  const [showAlert, setShowAlert] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [msg, setMsg] = useState("");
+
+  const turnOnAlart = (toggel , text)=> {
+    setIsSuccess(toggel )
+    setMsg(text)
+    setShowAlert(true)
+    setTimeout(()=>{
+      setShowAlert(false) 
+    }, 4000)
+  }
+
   return (
+      < DataContext.Provider value={{turnOnAlart : turnOnAlart }} >
     <BrowserRouter>
       <Box sx={continStyle}>
         <SideBar />
 
         <Box component="main" sx={boxStyle}>
+      
           <Routes>
             <Route path="/" element={<AddMovie />} />
             <Route path="/add-media" element={<AddMovie />} />
             <Route path="/add-actor" element={<AddActors />} />
           </Routes>
+          <AlertRun msg={msg} severity={isSuccess} open={showAlert}/>
         </Box>
       </Box>
     </BrowserRouter>
+        </DataContext.Provider>
   );
 }

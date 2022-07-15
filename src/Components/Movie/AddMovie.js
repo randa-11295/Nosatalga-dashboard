@@ -1,16 +1,18 @@
-import Grid from "@mui/material/Grid";
-import { useMutation } from "@apollo/client";
-import Button from "@mui/material/Button";
-import TextCustomInpute from "../Inputs/TextCustomInput";
-import LoadBtn from "../Inputs/LoadBtn";
+import { addMovieShema } from "../../Common/vaildation";
+import { addMovieQuiery } from "../../ApolloClint/mediaQuieries";
 import { useFormik } from "formik";
+import { useContext } from "react";
+import { useMutation } from "@apollo/client";
+import DataContext from "../../Context/DataContext";
+import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import AddCast from "./AddCast";
+import Headline from "../Text/Headline";
+import LoadBtn from "../Inputs/LoadBtn";
 import RedioArea from "../Inputs/RedioArea";
 import CheckArea from "../Inputs/CheckArea";
-import { addMovieShema } from "../../Common/vaildation";
-import Headline from "../Text/Headline";
-import { addMovieQuiery } from "../../ApolloClint/mediaQuieries";
-import AlertRun from "../Inputs/AlertRun";
-import AddCast from "./AddCast";
+import TextCustomInpute from "../Inputs/TextCustomInput";
+
 
 const values = {
   date: "",
@@ -45,6 +47,8 @@ const category = [
 ];
 
 export default function AddMovie() {
+ const myContext = useContext(DataContext)
+
   const formik = useFormik({
     initialValues: values,
     validationSchema: addMovieShema,
@@ -69,15 +73,19 @@ export default function AddMovie() {
       </Grid>
     ));
 
-  const [mutateFunction, { data, loading, error }] = useMutation(
+  const [mutateFunction, {loading }] = useMutation(
     addMovieQuiery,
     {
       variables: {
         showInput: formik.values
       },
       onCompleted: (res) => {
-        console.log(res);
+        formik.resetForm()
+        myContext.turnOnAlart(true ,  res.createShow.name  + " add Successfully ")
       },
+      onError : (err)=>{
+        myContext.turnOnAlart(false , err.message )
+      }
      
     }
   );
@@ -114,7 +122,7 @@ export default function AddMovie() {
         movieFormik={formik}
       />
       <Grid item xs={12}>
-        <AlertRun sucsses={data} error={error} />
+      
       </Grid>
       <Grid
         item
