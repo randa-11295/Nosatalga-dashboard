@@ -36,14 +36,12 @@ export default function TextFildWithBtn(props) {
         }
         name={props.name}
         label={props.label}
-        disabled={props.loding || false}
+        disabled={props.loading || false}
         endAdornment={
           <InputAdornment position="end">
             <IconButton
               aria-label="toggle password visibility"
-              onClick={() => {
-                props.formik.handleSubmit();
-              }}
+              onClick={props.fun}
               edge="end"
             >
               <DoneIcon />

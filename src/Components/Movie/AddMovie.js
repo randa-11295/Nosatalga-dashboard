@@ -11,45 +11,47 @@ import { addMovieQuiery } from "../../ApolloClint/mediaQuieries";
 import AlertRun from "../Inputs/AlertRun";
 import AddCast from "./AddCast";
 
+const values = {
+  date: "123",
+  panner: "https://studio.apollographql.com/sandbox/diff.png",
+  poster: "https://studio.apollographql.com/sandbox/diff.jpg",
+  url: "https://studio.apollographql.com/sandbox/diff/",
+  name: "ttt",
+  category : "ACTION" ,
+  type: "SONG",
+  description: "kkkkkk",
+  cast: [],
+};
+
+const textInput = [
+  { name: "name", label: "Show Name", size: 4 },
+  { name: "date", label: "Show Date", size: 4, num: true },
+  { name: "url", label: "Show URL", size: 4 },
+  { name: "description", label: "Media Description", size: 12, mult: true },
+  { name: "panner", label: "Pannar link", size: 4 },
+  { name: "poster", label: "Poster link", size: 4 },
+];
+
+const typs = [
+  { val: "MOVIE", label: "movie" },
+  { val: "SONG", label: "song" },
+  { val: "RARE", label: "rare" },
+];
 
 export default function BasicGrid() {
-
-
-  const values = {
-    date: "123",
-    panner: "https://studio.apollographql.com/sandbox/diff.png",
-    poster: "https://studio.apollographql.com/sandbox/diff.jpg",
-    url: "https://studio.apollographql.com/sandbox/diff/",
-    // name: "ttt",
-    type: "SONG",
-    description: "kkkkkk",
-    cast: [],
-  };
 
   const formik = useFormik({
     initialValues: values,
     // validationSchema: addMovieShema,
     onSubmit: (values) => {
-   
+       
+      console.log(values)
+
       mutateFunction();
-      // formik.resetForm();
+      // ;
     },
   });
 
-  const textInput = [
-    { name: "name", label: "Show Name", size: 4 },
-    { name: "date", label: "Show Date", size: 4, num: true },
-    { name: "url", label: "Show URL", size: 4 },
-    { name: "description", label: "Media Description", size: 12, mult: true },
-    { name: "panner", label: "Pannar link", size: 4 },
-    { name: "poster", label: "Poster link", size: 4 },
-  ];
-
-  const typs = [
-    { val: "MOVIE", label: "movie" },
-    { val: "SONG", label: "song" },
-    { val: "RARE", label: "rare" },
-  ];
 
   const repeatTextInput = () =>
     textInput.map((el) => (
@@ -66,11 +68,30 @@ export default function BasicGrid() {
 
   const [mutateFunction, { data , loading , error }] = useMutation(addMovieQuiery, {
     variables: {
-      showInput: formik.values,
-    } 
+      showInput: {
+        "cast" : ["62c2ebec1bed00c751c6d3d7"] , 
+        "date": "kkk"  ,
+        "category" : "NATIONAL" ,
+        "panner": "https://studio.apollographql.com/sandbox/diff.png" , 
+        "poster": "https://studio.apollographql.com/sandbox/diff.jpg" ,
+        "description": "kkkkkk" ,
+        "url": "https://studio.apollographql.com/sandbox/diff/" ,
+        "name": "randa" ,
+        "type": "SONG" ,
+      }
+    },
+    onCompleted: (res) => {
+      console.log(res);
+    },
+    //  {
+    //   showInput: formik.values,
+    // } 
   });
 
 
+  const custumHandelChange = (val, key) => {
+    formik.values[key] = val;
+  };
 
   return (
     <Grid
@@ -90,7 +111,7 @@ export default function BasicGrid() {
         <RedioArea formik={formik} name="type" data={typs} />
       </Grid>
 
-      <AddCast movieFormik={formik} />
+      <AddCast custumHandelChange={custumHandelChange} name="cast"  movieFormik={formik} />
       <Grid item xs={12}>
       <AlertRun sucsses={data} error={error} />
 

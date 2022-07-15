@@ -1,10 +1,10 @@
 import * as yup from "yup";
 
-const stringCheck = (field) =>
+const stringCheck = (field , num) =>
   yup
     .string(`Enter media name ${field} `)
     .required(`${field} is required`)
-    .min(3, `${field}  should be of minimum 3 characters length`)
+    .min(num , `${field}  should be of minimum ${num} characters length`)
     .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field ");
 
 const dateCheck = () =>
@@ -36,8 +36,8 @@ const imageURL = () => {
 };
 
 export const addMovieShema = yup.object({
-  name: stringCheck("name"),
-  description: stringCheck("description"),
+  name: stringCheck("name" , 3),
+  description: stringCheck("description" , 100),
   url: stringCheck("Id"),
   poster: imgCheck("bannar"),
   cover : imgCheck("cover"),
@@ -46,15 +46,16 @@ export const addMovieShema = yup.object({
   // cast : arrCheck , 
 });
 
+
 export const addActorShema =(isLive)=>( yup.object({
-  name: stringCheck("name"),
+  name: stringCheck("name" , 5),
   image: imageURL("image"),
   from: dateCheck("from"),
   to: (isLive ? null : dateCheck("to")),
-  gender: stringCheck("gender"),
+  gender: stringCheck("gender" , 0),
   jobs: arrCheck,
 }));
 
 export const addCastShema = yup.object({
-  name: stringCheck("cast"),
+  name: stringCheck("cast" , 3),
 });

@@ -7,8 +7,9 @@ import { getActorData } from "../../ApolloClint/mediaQuieries";
 import { addCastShema } from "../../Common/vaildation";
 import { useState } from "react";
 
-const AddCast = () => {
+const AddCast = (props) => {
   const [myActors, setMyActor] = useState([]);
+  const [actorsIds, setActorsIds] = useState([]);
 
   const values = {
     name: "",
@@ -17,33 +18,60 @@ const AddCast = () => {
   const formik = useFormik({
     initialValues: values,
     validationSchema: addCastShema,
-    onSubmit: () => {
-      getActor();
+    onSubmit: (values) => {
+       const nawActor = myActors.every((el) => values.name !== el.name)
+       if (nawActor){
+         getActor();
+       }
+       else {
+        console.log("already added")
+       }
     },
   });
+
+ const test =()=>{
+  const nawActor = myActors.every((el) => values.name !== el.name)
+  if (nawActor){
+    getActor();
+  }
+  else {
+   console.log("already added")
+  }
+}
+
 
   const [getActor, { loading, error }] = useLazyQuery(getActorData, {
     variables: {
       name: formik.values.name,
     },
+  
     onCompleted: (res) => {
-      console.log(res);
       setMyActor([...myActors, res.getActor]);
+      setActorsIds([...actorsIds, res.getActor._id]);
+      formik.resetForm() ;  
+      props.custumHandelChange([...actorsIds, res.getActor._id], props.name);
     },
   });
 
   const deleteActor = (id) => {
     const actors = myActors.filter((el) => el._id !== id);
+    const actorId = actorsIds.filter((el) => el._id !== id);
+
     setMyActor(actors);
+    setActorsIds(actorId);
+ 
+    props.custumHandelChange(actorId, props.name);
   };
+
   return (
     <>
       <Grid onSubmit={formik.handleSubmit} item xs={4}>
         <TextFildWithBtn
-          loading={loading}
+          // loading={loading}
           label="name"
           name="name"
           formik={formik}
+          fun = {test}
           err={error}
         />
       </Grid>
