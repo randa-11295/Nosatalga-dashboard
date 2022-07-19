@@ -88,8 +88,7 @@ export default function AddMovie() {
       },
       onError : (err)=>{
         myContext.turnOnAlart(false , err.message )
-      }
-     
+      }   
     }
   );
 
