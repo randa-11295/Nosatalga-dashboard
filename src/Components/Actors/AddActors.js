@@ -19,6 +19,8 @@ const job = [
   { name: "مخرج", label: "director" },
   { name: "عازف", label: "musician" },
   { name: "ملحن", label: "composer" },
+  { name: "شاعر", label: "Poet" },
+  { name: "كاتب", label: "writer" },
 ];
 
 const gender = [
@@ -26,17 +28,7 @@ const gender = [
   { val: "famale", label: "Famale " },
 ];
 
-// {
-//   "actorInput": {
-//     "from": "ssss" ,
-//     "image": "https://i.ibb.co/Mf1Sw1P/0089c1ff-0898-40a8-9b74-acc395bcc9f7-16x9-1200x676.jpg" , 
-//     "name": "eeeee" ,
-//      "to": "1996",
-//     "type": "ss" , 
 
-
-//   }
-// }
 
 const values = {
   name: "",
@@ -115,7 +107,7 @@ export default function AddActors() {
       actorInput: reqVal,
     },
     onCompleted: (res) => {
-      // formik.resetForm();
+      formik.resetForm();
       // myContext.turnOnAlart(true, res.createShow.name + " add Successfully ");
       console.log("add" , res)
     },

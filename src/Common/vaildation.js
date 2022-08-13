@@ -12,13 +12,13 @@ const IdCheck = (field , num=0) =>
     .required(`${field} is required`)
     .min(num, `${field}  should be of minimum ${num} characters length`);
 
-const dateCheck = () =>
+const dateCheck = (start = 1500 , end = 2000) =>
   yup
     .number("enter the  date")
     .required(` date is required`)
     .integer("must be integer")
-    .min(1500, "must be more to 1500")
-    .max(2000, "must be less to 2000");
+    .min(start, "must be more to 1500")
+    .max(end, "must be less to 2000");
 
 const arrCheck = (frist, sec, action = "chose") =>
   yup
@@ -49,7 +49,7 @@ export const addMovieShema = yup.object({
   panner: imageURL("panner"),
   type: stringCheck("type"),
   category: arrCheck(2, 5),
-  date: dateCheck("date"),
+  date: dateCheck(),
   cast: arrCheck(3, 10, "add"),
 });
 
@@ -57,8 +57,8 @@ export const addActorShema = (isLive) =>
   yup.object({
     name: stringCheck("name", 5),
     image: imageURL("image"),
-    from: dateCheck("from"),
-    to: isLive ? null : dateCheck("to"),
+    from: dateCheck(1800 , 2022),
+    to: isLive ? null : dateCheck(1800 , 2022),
     gender: stringCheck("gender", 0),
     jobs: arrCheck(1, 2),
   });

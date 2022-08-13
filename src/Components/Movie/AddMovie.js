@@ -41,9 +41,10 @@ const typs = [
 ];
 
 const category = [
-  { name: "MOVIE", label: "movie" },
-  { name: "SONG", label: "song" },
-  { name: "RARE", label: "rare" },
+  { name: "حفلة موسيقية", label:" party" },
+  { name: "رومانسي", label: "romance" },
+  { name: "كوميدي", label: "comedy" },
+  { name: "درامي", label: "drama" },
 ];
 
 export default function AddMovie() {
@@ -84,9 +85,11 @@ export default function AddMovie() {
       onCompleted: (res) => {
         setClean(true)
         formik.resetForm()
+        console.log(res)
         myContext.turnOnAlart(true ,  res.createShow.name  + " add Successfully ")
       },
       onError : (err)=>{
+        console.log(err)
         myContext.turnOnAlart(false , err.message )
       }   
     }
