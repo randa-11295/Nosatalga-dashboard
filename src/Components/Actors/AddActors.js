@@ -26,6 +26,18 @@ const gender = [
   { val: "famale", label: "Famale " },
 ];
 
+// {
+//   "actorInput": {
+//     "from": "ssss" ,
+//     "image": "https://i.ibb.co/Mf1Sw1P/0089c1ff-0898-40a8-9b74-acc395bcc9f7-16x9-1200x676.jpg" , 
+//     "name": "eeeee" ,
+//      "to": "1996",
+//     "type": "ss" , 
+
+
+//   }
+// }
+
 const values = {
   name: "",
   from: "",
@@ -46,17 +58,12 @@ export default function AddActors() {
     validationSchema: addActorShema(isLive),
     onSubmit: (values) => {
       getCarrer(values.jobs, values.gender);
-      mutateFunction();
+      mutateFunction();  
+      console.log(values)
     },
   });
 
-  let reqVal = {
-    name: formik.values.name,
-    from: formik.values.from.toString(),
-    to: formik.values.toString(),
-    type: formik.values.type,
-    image: formik.values.image,
-  };
+
 
   const getCarrer = (jobs, gender) => {
     if (gender === "famale") {
@@ -96,16 +103,25 @@ export default function AddActors() {
     formik.values.to = "now";
   };
 
+  let reqVal = {
+    name: formik.values.name,
+    from: formik.values.from.toString(),
+    to: formik.values.toString(),
+    type: formik.values.type,
+    image: formik.values.image,
+  };
   const [mutateFunction, { loading }] = useMutation(addActorQuiery, {
     variables: {
       actorInput: reqVal,
     },
     onCompleted: (res) => {
-      formik.resetForm();
-      myContext.turnOnAlart(true, res.createShow.name + " add Successfully ");
+      // formik.resetForm();
+      // myContext.turnOnAlart(true, res.createShow.name + " add Successfully ");
+      console.log("add" , res)
     },
     onError: (err) => {
-      myContext.turnOnAlart(false, err.message);
+      // myContext.turnOnAlart(false, err.message);
+      console.log("err" ,err)
     },
   });
 

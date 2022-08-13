@@ -5,8 +5,7 @@ const stringCheck = (field, num = 0) =>
     .string(`Enter   ${field} `)
     .required(`${field} is required`)
     .min(num, `${field}  should be of minimum ${num} characters length`)
-    .matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field ");
-
+    
 const IdCheck = (field , num=0) =>
   yup
     .string(`Enter   ${field} `)
@@ -19,7 +18,7 @@ const dateCheck = () =>
     .required(` date is required`)
     .integer("must be integer")
     .min(1500, "must be more to 1500")
-    .max(1900, "must be less to 1980");
+    .max(2000, "must be less to 2000");
 
 const arrCheck = (frist, sec, action = "chose") =>
   yup
