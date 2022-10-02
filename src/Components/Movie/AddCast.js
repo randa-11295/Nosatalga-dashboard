@@ -5,7 +5,7 @@ import TextFildWithBtn from "../Inputs/TextFildWithBtn";
 import { useFormik } from "formik";
 import { useLazyQuery } from "@apollo/client";
 import { getActorData } from "../../ApolloClint/mediaQuieries";
-import { addCastShema } from "../../Common/vaildation";
+import { addCastShema } from "../../utils/vaildation";
 import { useState , useContext  , useEffect} from "react";
 
 const AddCast = (props) => {

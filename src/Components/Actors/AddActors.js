@@ -9,7 +9,7 @@ import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TextCustomInpute from "../Inputs/TextCustomInput";
 import { useFormik } from "formik";
-import { addActorShema } from "../../Common/vaildation";
+import { addActorShema } from "../../utils/vaildation";
 import { useMutation } from "@apollo/client";
 import { addActorQuiery } from "../../ApolloClint/mediaQuieries";
 import { useState, useContext } from "react";
