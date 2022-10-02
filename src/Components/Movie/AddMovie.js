@@ -106,6 +106,7 @@ export default function AddMovie() {
       container
       columnSpacing={4}
       rowSpacing={3}
+      sx={{background : "#262836" ,m : "20px auto" , width : "95%",  pr : 4}}
     >
       <Grid item xs={12}>
         <Headline text="Add Show" />

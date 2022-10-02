@@ -20,7 +20,7 @@ export default function App() {
   const drawerWidth = 240;
   const BoxStyle = {
     flexGrow: 1,
-    p: 3,
+    // p: 3,
     width: { md: `calc(100% - ${drawerWidth}px)` },
   };
 

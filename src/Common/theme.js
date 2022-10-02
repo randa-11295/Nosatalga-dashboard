@@ -1,15 +1,22 @@
-import {  createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
-const theme =   createTheme({
-palette: {
-     primary: {               
-          main: '#ce5282',
-          contrastText : '#fff'
-     },
-     secondary:  {               
-          main: '#7a3f85',
-          contrastText : '#fff'
-     },},  
-})
-
-export default theme
+const theme = createTheme({
+  palette: {
+    mode: "dark",
+    // smooth red
+    secondary: {
+      main: "#d15050",
+      contrastText: "#f3f3f3",
+    },
+    //   creamy
+    primary: {
+      main: "#f3f3f3",
+      contrastText: "#000",
+    },
+    error: {
+      main: "#d15050",
+      contrastText: "#f3f3f3",
+    },
+  },
+});
+export default theme;
